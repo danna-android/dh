@@ -13,11 +13,6 @@ export const loadItemsSuccess = createAction(
   props<{ items: Item[] }>()
 );
 
-export const addItem = createAction(
-  '[Item] Add Item',
-  props<{ item: Item }>()
-);
-
 export const addItemSuccess = createAction(
   '[Item] Add Item Success',
   props<{ item: Item }>()

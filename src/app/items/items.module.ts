@@ -8,7 +8,6 @@ import { ItemsComponent } from './items.component';
 import { ItemCardComponent } from './components/item-card/item-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     ItemsComponent,
@@ -19,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ItemsRoutingModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class ItemsModule { }
+export class ItemsModule {}

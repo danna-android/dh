@@ -15,6 +15,7 @@ export const initialState: ItemState = adapter.getInitialState({
 
 export const itemReducer = createReducer(
   initialState,
+  on(ItemActions.createItem, (state, { item }) => adapter.addOne(item, state)),
   on(ItemActions.loadItemsSuccess, (state, { items }) =>
     adapter.setAll(items, state)
   ),

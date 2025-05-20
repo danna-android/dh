@@ -1,5 +1,11 @@
 <div class="container">
-  <app-items-list></app-items-list>
+  <app-items-list
+    [items]="items$ | async"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+  >
+  </app-items-list>
+
   <button class="floating-button" (click)="openCreateModal()">+</button>
 </div>
 

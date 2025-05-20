@@ -1,1 +1,10 @@
-<div class="list-items-container"></div>
+<div *ngIf="items?.length; else empty">
+  <app-item-card
+    *ngFor="let item of items"
+    [item]="item">
+  </app-item-card>
+</div>
+
+<ng-template #empty>
+  <p>No items to display.</p>
+</ng-template>

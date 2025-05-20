@@ -31,10 +31,13 @@ export class ItemNewComponent {
 
   onSubmit(): void {
     if (this.form.valid) {
-      const newItem = this.form.value;
+      const newItem: Item = {
+        ...this.form.value,
+        id: Date.now().toString(),
+      };
       this.store.dispatch(createItem({ item: newItem }));
       this.form.reset();
-      this.onClose()
+      this.onClose();
     }
   }
 
