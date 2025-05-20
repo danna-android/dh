@@ -1,1 +1,32 @@
-<p>item-new works!</p>
+<div class="modal-overlay" (click)="close.emit()"></div>
+
+<div class="modal">
+  <h2>{{ isEditMode ? 'Update Item' : 'New Item' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label>
+      Title:
+      <input formControlName="title" type="text" />
+    </label>
+
+    <label>
+      Description:
+      <textarea formControlName="description"></textarea>
+    </label>
+
+    <label>
+      Status:
+      <select formControlName="status">
+        <option value="" disabled>Select status</option>
+        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+      </select>
+    </label>
+
+    <div class="actions">
+      <button type="button" (click)="close.emit()">Cancel</button>
+      <button type="submit" [disabled]="form.invalid">
+        {{ isEditMode ? 'Update' : 'Create' }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,4 +1,12 @@
 <div class="container">
   <app-items-list></app-items-list>
-  <button class="floating-button">+</button>
+  <button class="floating-button" (click)="openCreateModal()">+</button>
 </div>
+
+<app-item-new
+  *ngIf="showModal"
+  [item]="selectedItem"
+  (close)="closeModal()"
+  (submit)="handleSubmit($event)"
+>
+</app-item-new>

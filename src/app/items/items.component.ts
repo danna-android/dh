@@ -1,15 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { Item } from './enums/item.model';
 
 @Component({
   selector: 'app-items',
   templateUrl: './items.component.html',
-  styleUrls: ['./items.component.scss']
+  styleUrls: ['./items.component.scss'],
 })
-export class ItemsComponent implements OnInit {
+export class ItemsComponent {
+  showModal = false;
+  selectedItem?: Item;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  openCreateModal() {
+    this.selectedItem = undefined;
+    this.showModal = true;
   }
 
+  closeModal() {
+    this.showModal = false;
+  }
+
+  handleSubmit(newItem: Item) {
+    this.closeModal();
+  }
 }
