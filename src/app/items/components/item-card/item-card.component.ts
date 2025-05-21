@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Item } from '../../enums/item.model';
 
 @Component({
@@ -6,10 +6,23 @@ import { Item } from '../../enums/item.model';
   templateUrl: './item-card.component.html',
   styleUrls: ['./item-card.component.scss'],
 })
-export class ItemCardComponent implements OnInit {
+export class ItemCardComponent {
   @Input() item!: Item;
-  
-  constructor() {}
+  @Output() edit = new EventEmitter<Item>();
+  @Output() delete = new EventEmitter<Item>();
+  @Input() selected = false;
+  @Output() toggleSelection = new EventEmitter<{ item: Item; selected: boolean }>();
 
-  ngOnInit(): void {}
+  onCheckboxChange(event: Event) {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.toggleSelection.emit({ item: this.item, selected: checked });
+  }
+
+  onDelete(): void {
+    this.delete.emit(this.item);
+  }
+
+  onEdit() {
+    this.edit.emit(this.item);
+  }
 }

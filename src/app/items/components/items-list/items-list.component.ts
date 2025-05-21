@@ -8,8 +8,13 @@ import { Item } from '../../enums/item.model';
 })
 export class ItemsListComponent implements OnInit {
   @Input() items: Item[] | null = [];
+  @Input() selectedItems = new Set<string>();
   @Output() edit = new EventEmitter<Item>();
   @Output() delete = new EventEmitter<Item>();
+  @Output() toggleSelection = new EventEmitter<{
+    item: Item;
+    selected: boolean;
+  }>();
 
   constructor() {}
 

@@ -1,12 +1,21 @@
 <div class="card-container">
-  <div class="card-content">
+  <input
+    type="checkbox"
+    [checked]="selected"
+    (change)="onCheckboxChange($event)"
+  />
+  <div class="card-content" (click)="onEdit()">
     <div>
-      <h3>{{ item.title }} </h3>
+      <h3>{{ item.title }}</h3>
       <p>{{ item.description }}</p>
       <small>
         {{ item.update_date ? "Updated" : "Created" }}:
-        {{ item.update_date || item.creation_date }}
+        {{ item.update_date || item.creation_date | date : "yyyy*MM*dd HH|mm|ss" }}
       </small>
+    </div>
+    <div class="card-actions">
+      <span class="status-tag">{{ item.status }}</span>
+      <button (click)="onDelete(); $event.stopPropagation()">✖</button>
     </div>
   </div>
 </div>

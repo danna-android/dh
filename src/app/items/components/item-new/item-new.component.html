@@ -25,7 +25,7 @@
     <div class="actions">
       <button type="button" (click)="close.emit()">Cancel</button>
       <button type="submit" [disabled]="form.invalid">
-        {{ isEditMode ? 'Update' : 'Create' }}
+        {{ isEditMode ? 'Updated' : 'Created' }}
       </button>
     </div>
   </form>

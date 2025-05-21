@@ -1,16 +1,111 @@
+:host {
+  display: block;
+  margin-bottom: 1rem;
+}
+
 .card-container {
   display: flex;
-  background-color: #1f1f1f;
-  border-radius: 6px;
+  align-items: center;
+  background-color: #2b2b2b;
+  border-left: 4px solid #4caf50;
+  border-radius: 8px;
   padding: 1rem;
-  margin-bottom: 1rem;
   position: relative;
-  box-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+  color: #e0e0e0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+  background-color: #4d4f4d;
+  border-radius: 50%;
+  margin-right: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  &:checked {
+    background-color: #4caf50;
+    border-color: #4caf50;
+  }
+
+  &:checked::before {
+    content: "✓";
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+  }
 }
 
 .card-content {
   display: flex;
-  width: 100%;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.card-text-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-grow: 1;
+}
+
+.card-text-info h3 {
+  font-size: 1.1em;
+  color: #c9e6c9;
+}
+
+.card-text-info p {
+  font-size: 0.9em;
+  color: #a0a0a0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+
+.card-text-info small {
+  font-size: 0.75em;
+  color: #888;
+  white-space: nowrap;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.status-tag {
+  background-color: #333;
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8em;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.card-actions button {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 5px;
+}
+
+.card-actions button:hover {
+  color: #f44336;
 }

@@ -1,8 +1,18 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Item, Status } from '../../enums/item.model';
 import { Store } from '@ngrx/store';
-import { createItem } from '../../state/item.actions';
+import {
+  createItem,
+  updateItem,
+  updateItemSuccess,
+} from '../../state/item.actions';
 
 @Component({
   selector: 'app-item-new',
@@ -21,7 +31,17 @@ export class ItemNewComponent {
   constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
-    this.isEditMode = !!this.item;
+    this.initForm();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['item']) {
+      this.isEditMode = !!this.item;
+      this.initForm();
+    }
+  }
+
+  private initForm(): void {
     this.form = this.fb.group({
       title: [this.item?.title || '', Validators.required],
       description: [this.item?.description || '', Validators.required],
@@ -31,23 +51,26 @@ export class ItemNewComponent {
 
   onSubmit(): void {
     if (this.form.valid) {
-      const newItem: Item = {
+      const updatedItem: Item = {
         ...this.form.value,
-        id: Date.now().toString(),
-        creation_date: this.formatCustomDate(),
+        id: this.item?.id || Date.now().toString(),
+        creation_date: this.item?.creation_date || new Date(),
+        update_date: this.isEditMode ? new Date() : undefined,
       };
-      this.store.dispatch(createItem({ item: newItem }));
+
+      if (this.isEditMode) {
+        this.store.dispatch(
+          updateItemSuccess({
+            update: { id: updatedItem.id, changes: updatedItem },
+          })
+        );
+      } else {
+        this.store.dispatch(createItem({ item: updatedItem }));
+      }
+
       this.form.reset();
       this.onClose();
     }
-  }
-
-  formatCustomDate() {
-    const now = new Date();
-    const datePart = new Intl.DateTimeFormat('en-CA').format(now); 
-    const timePart = now.toTimeString().split(' ')[0].replace(/:/g, '|'); 
-
-    return datePart.replace(/-/g, '*') + ' ' + timePart;
   }
 
   onClose() {

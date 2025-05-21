@@ -14,6 +14,8 @@ export class ItemsComponent {
   selectedItem?: Item;
   items$ = this.store.select(selectAllItems);
 
+  selectedItems = new Set<string>();
+
   constructor(private store: Store) {}
 
   openCreateModal() {
@@ -31,10 +33,31 @@ export class ItemsComponent {
   }
 
   onEdit(item: Item) {
-    this.store.dispatch(ItemActions.updateItem({ item }));
+    this.selectedItem = item;
+    this.showModal = true;
   }
 
   onDelete(item: Item) {
-    this.store.dispatch(ItemActions.deleteItem({ id: item.id }));
+    this.store.dispatch(ItemActions.deleteItemSuccess({ id: item.id }));
+  }
+
+  toggleSelection(item: Item, selected: boolean): void {
+    const updated = new Set(this.selectedItems);
+    if (selected) {
+      updated.add(item.id);
+    } else {
+      updated.delete(item.id);
+    }
+    this.selectedItems = updated;
+  }
+
+  onShare(): void {
+    this.items$.subscribe(allItems => {
+      if (allItems) {
+        const previouslySelectedItems = allItems.filter(item => this.selectedItems.has(item.id));
+        console.log('Selected Items:', previouslySelectedItems);
+        this.selectedItems.clear();
+      }
+    }).unsubscribe();
   }
 }

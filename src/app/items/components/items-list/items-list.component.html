@@ -1,7 +1,12 @@
 <div *ngIf="items?.length; else empty">
   <app-item-card
     *ngFor="let item of items"
-    [item]="item">
+    [item]="item"
+    [selected]="selectedItems.has(item.id)"
+    (delete)="delete.emit($event)"
+    (edit)="edit.emit($event)"
+    (toggleSelection)="toggleSelection.emit($event)"
+  >
   </app-item-card>
 </div>
 

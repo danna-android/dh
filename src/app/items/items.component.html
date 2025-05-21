@@ -1,12 +1,21 @@
 <div class="container">
   <app-items-list
     [items]="items$ | async"
+    [selectedItems]="selectedItems"
     (edit)="onEdit($event)"
     (delete)="onDelete($event)"
+    (toggleSelection)="toggleSelection($event.item, $event.selected)"
   >
   </app-items-list>
 
-  <button class="floating-button" (click)="openCreateModal()">+</button>
+  <div class="floating-buttons-container">
+    <div class="floating-share-wrapper" *ngIf="selectedItems.size > 0" (click)="onShare()">
+      <button class="floating-button share">C</button>
+      <span class="share-badge">{{ selectedItems.size }}</span>
+    </div>
+
+    <button class="floating-button add" (click)="openCreateModal()">+</button>
+  </div>
 </div>
 
 <app-item-new
