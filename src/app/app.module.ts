@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { ItemsModule } from './items/items.module';
 import { StoreModule } from '@ngrx/store';
 import { itemReducer } from './items/state/item.reducer';
+import { loadState } from './items/state/local-storage';
+import { metaReducers } from './items/state/meta-reducers';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,10 @@ import { itemReducer } from './items/state/item.reducer';
     BrowserModule,
     AppRoutingModule,
     ItemsModule,
-    StoreModule.forRoot({ items: itemReducer }),
+    StoreModule.forRoot({ items: itemReducer }, {
+      initialState: loadState(),   
+      metaReducers,            
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,6 +12,6 @@ export interface Item {
   title: string;
   description: string;
   status: Status;
-  creation_date: string;
-  update_date?: string;
+  creation_date: Date;
+  update_date?: Date;
 }

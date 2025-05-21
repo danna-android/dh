@@ -34,11 +34,20 @@ export class ItemNewComponent {
       const newItem: Item = {
         ...this.form.value,
         id: Date.now().toString(),
+        creation_date: this.formatCustomDate(),
       };
       this.store.dispatch(createItem({ item: newItem }));
       this.form.reset();
       this.onClose();
     }
+  }
+
+  formatCustomDate() {
+    const now = new Date();
+    const datePart = new Intl.DateTimeFormat('en-CA').format(now); 
+    const timePart = now.toTimeString().split(' ')[0].replace(/:/g, '|'); 
+
+    return datePart.replace(/-/g, '*') + ' ' + timePart;
   }
 
   onClose() {
