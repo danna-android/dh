@@ -1,31 +1,27 @@
 <div class="modal-overlay" (click)="close.emit()"></div>
 
 <div class="modal">
-  <h2>{{ isEditMode ? 'Update Item' : 'New Item' }}</h2>
-
+  <h2>{{ isEditMode ? "Update Item" : "New Item" }}</h2>
+  <hr />
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <label>
-      Title:
-      <input formControlName="title" type="text" />
-    </label>
+    <input formControlName="title" type="text" placeholder="Title:" />
 
-    <label>
-      Description:
-      <textarea formControlName="description"></textarea>
-    </label>
+    <textarea
+      formControlName="description"
+      placeholder="Descripction:"
+    ></textarea>
 
-    <label>
-      Status:
-      <select formControlName="status">
-        <option value="" disabled>Select status</option>
-        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
-      </select>
-    </label>
+    <select formControlName="status">
+      <option value="" disabled>Select status</option>
+      <option *ngFor="let status of statuses" [value]="status">
+        {{ status }}
+      </option>
+    </select>
 
     <div class="actions">
       <button type="button" (click)="close.emit()">Cancel</button>
       <button type="submit" [disabled]="form.invalid">
-        {{ isEditMode ? 'Updated' : 'Created' }}
+        {{ isEditMode ? "Updated" : "Created" }}
       </button>
     </div>
   </form>
