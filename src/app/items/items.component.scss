@@ -8,6 +8,10 @@
   position: relative;
   color: white;
 }
+.content-wrapper {
+  width: 100%;
+  max-width: 800px;
+}
 
 app-items-list {
   width: 70%;
@@ -56,4 +60,23 @@ app-items-list {
   padding: 2px 6px;
   font-size: 10px;
   font-weight: bold;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
 }

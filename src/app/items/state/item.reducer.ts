@@ -5,12 +5,14 @@ import * as ItemActions from './item.actions';
 
 export interface ItemState extends EntityState<Item> {
   selectedItemId: string | null;
+  searchTerm: string | null;
 }
 
 export const adapter = createEntityAdapter<Item>();
 
 export const initialState: ItemState = adapter.getInitialState({
   selectedItemId: null,
+  searchTerm: null,
 });
 
 export const itemReducer = createReducer(
@@ -27,7 +29,11 @@ export const itemReducer = createReducer(
   ),
   on(ItemActions.deleteItemSuccess, (state, { id }) =>
     adapter.removeOne(id, state)
-  )
+  ),
+  on(ItemActions.setSearchTerm, (state, { searchTerm }) => ({
+    ...state,
+    searchTerm: searchTerm,
+  }))
 );
 
 export const { selectAll, selectEntities, selectIds, selectTotal } =

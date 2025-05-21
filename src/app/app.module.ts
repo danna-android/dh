@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { itemReducer } from './items/state/item.reducer';
 import { loadState } from './items/state/local-storage';
 import { metaReducers } from './items/state/meta-reducers';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [

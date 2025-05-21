@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Item } from './enums/item.model';
-import { selectAllItems } from './state/item.selectors';
+import { selectAllItems, selectFilteredItems } from './state/item.selectors';
 import { Store } from '@ngrx/store';
 import * as ItemActions from './state/item.actions';
+import { Observable, Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-items',
@@ -16,7 +19,10 @@ export class ItemsComponent {
 
   selectedItems = new Set<string>();
 
-  constructor(private store: Store) {}
+  searchTerm: string = '';
+
+  constructor(private store: Store) {
+  }
 
   openCreateModal() {
     this.selectedItem = undefined;
@@ -52,12 +58,27 @@ export class ItemsComponent {
   }
 
   onShare(): void {
-    this.items$.subscribe(allItems => {
-      if (allItems) {
-        const previouslySelectedItems = allItems.filter(item => this.selectedItems.has(item.id));
-        console.log('Selected Items:', previouslySelectedItems);
-        this.selectedItems.clear();
-      }
-    }).unsubscribe();
+    this.items$
+      .subscribe((allItems) => {
+        if (allItems) {
+          const previouslySelectedItems = allItems.filter((item) =>
+            this.selectedItems.has(item.id)
+          );
+          console.log('Selected Items:', previouslySelectedItems);
+          this.selectedItems.clear();
+        }
+      })
+      .unsubscribe();
   }
+
+  get filteredItems$(): Observable<Item[]> {
+  return this.items$.pipe(
+    map(items =>
+      items.filter(item =>
+        item.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.description.toLowerCase().includes(this.searchTerm.toLowerCase())
+      )
+    )
+  );
+}
 }

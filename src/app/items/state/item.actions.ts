@@ -37,3 +37,8 @@ export const deleteItemSuccess = createAction(
   '[Item] Delete Item Success',
   props<{ id: string }>()
 );
+
+export const setSearchTerm = createAction(
+  '[Item] Set Search Term',
+  props<{ searchTerm: string | null }>()
+);
